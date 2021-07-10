@@ -14,35 +14,39 @@ const router = Router();
 // GET /:ID
 // [ ] GET /videogame/{idVideogame}
 
-var detalles = [];
 
-router.get(`/:idVideogames`, async (req, res) => {
-  let resp = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
-  for (let i = 0; i < resp.data.results.length; i++) {
+router.get(`/:id`, async (req, res) => { 
+    var detalles = [];
+    const ID= req.params.id
+   
+    //detalles.push(await Videogame.findAll({where:{id:{ID}}} ))
+    let resp = await axios.get(`https://api.rawg.io/api/games/${ID}?key=${API_KEY}`); 
+ // for (let i = 0; i < resp.data.results.length; i++) {
     // console.log(resp.data.results)
-    if (resp.data.results[i].id == req.params.idVideogames) {
+    if (resp.data/*[i].id == req.params.idVideogames*/) { //uso ==  por que lo paso como string y el id es un integer, compara un string con un integer
       detalles.push({
-        id: resp.data.results[i].id,
-        name: resp.data.results[i].name,
-        image: resp.data.results[i].background_image,
-        genres: resp.data.results[i].genres,
-        rating: resp.data.results[i].rating,
-        platforms: resp.data.results[i].platforms,
-        releaseDate: resp.data.results[i].released,
+        id: resp.data.id,
+        name: resp.data.name,
+        image: resp.data.background_image,
+        genres: resp.data.genres, //include genres
+        rating: resp.data.rating,
+        platforms: resp.data.platforms,
+        releaseDate: resp.data.released,
       });
     }
-  }
+  //}
   res.json(detalles);
-  detalles = [];
+  //detalles = [];
 });
 
 //  primeros 15 videojuegos que contengan palabra ingresada como query parameter
 router.get("/", async (req, res) => {
-  try {
-    let videogames = [];
+    try {
+        let videogames = [];
         var {name} = req.query
         videogames=[]
         if(name){
+            videogames.push(await Videogame.findAll({name:{name}} )) // CHEQUEAR
             var resp= await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`)
            for(var i = 0; i<15; i++){
                if(resp.data.results[i]){
@@ -51,64 +55,123 @@ router.get("/", async (req, res) => {
            }
             res.send(videogames)
         }else{
-            
+            videogames.push(await Videogame.findAll())
     var resp = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
-     var respLimited = resp.data.results.slice(0, 15)
-    videogames.push(respLimited)
-   
-    
+   // console.log('-----------------------------------', resp)
+     var respLimited = resp.data.results//.slice(0, 15)
+     //console.log(respLimited)
+     respLimited.map((g) => {
+        var pp = {
+            id: g.id,
+            name: g.name,
+            image: g.background_image,
+            genres: g.genres.map((g)=> (g.name)),  // DEBO HACER LO MISMO QUE EN PLATFORMS 
+            rating: g.rating,
+            platforms: g.platforms.map((p)=> (p.platform.name)),
+            releaseDate: g.released,
+        }
+         return videogames.push(pp)
+     })
     // var next = resp.data.next
     //console.log(next)
     
     const resp2 = await axios.get(resp.data.next)
-    var respLimited2 = resp2.data.results.slice(0, 15)
-    for(let dataNext of respLimited2){
-        //console.log('------------------------')
-        //console.log(dataNext)
-        //console.log('------------------------')
-        videogames.push(dataNext)
-    }
+    var respLimited2 = resp2.data.results//.slice(0, 15)
+    
+    respLimited2.map((g) => {
+        var pp2 = {
+            id: g.id,
+            name: g.name,
+            image: g.background_image,
+            genres: g.genres.map((g)=> (g.name)),  // DEBO HACER LO MISMO QUE EN PLATFORMS 
+            rating: g.rating,
+            platforms: g.platforms.map((p)=> (p.platform.name)),
+            releaseDate: g.released,
+            
+        }
+         return videogames.push(pp2)
+     })
+    
     const resp3 = await axios.get(resp.data.next)
-    var respLimited3 = resp3.data.results.slice(0, 15)
-    for(let dataNext1 of respLimited3){
-        //console.log('------------------------')
-        //console.log(dataNext)
-        //console.log('------------------------')
-        videogames.push(dataNext1)
-    }
+    var respLimited3 = resp3.data.results//.slice(0, 15)
+    respLimited3.map((g) => {
+        var pp3 = {
+            id: g.id,
+            name: g.name,
+            image: g.background_image,
+            genres: g.genres.map((g)=> (g.name)),  // DEBO HACER LO MISMO QUE EN PLATFORMS 
+            rating: g.rating,
+            platforms: g.platforms.map((p)=> (p.platform.name)),
+            releaseDate: g.released,
+            
+        }
+         return videogames.push(pp3)
+     })
     const resp4 = await axios.get(resp.data.next)
-    var respLimited4 = resp4.data.results.slice(0, 15)
-    for(let dataNext4 of respLimited4){
-        //console.log('------------------------')
-        //console.log(dataNext)
-        //console.log('------------------------')
-        videogames.push(dataNext4)
-    }
+    var respLimited4 = resp4.data.results//.slice(0, 15)
+    respLimited4.map((g) => {
+        var pp4 = {
+            id: g.id,
+            name: g.name,
+            image: g.background_image,
+            genres: g.genres.map((g)=> (g.name)),  // DEBO HACER LO MISMO QUE EN PLATFORMS 
+            rating: g.rating,
+            platforms: g.platforms.map((p)=> (p.platform.name)),
+            releaseDate: g.released,
+            
+        }
+         return videogames.push(pp4)
+     })
     const resp5 = await axios.get(resp.data.next)
-    var respLimited5 = resp5.data.results.slice(0, 15)
-    for(let dataNext5 of respLimited5){
-        //console.log('------------------------')
-        //console.log(dataNext)
-        //console.log('------------------------')
-        videogames.push(dataNext5)
-    }
+    var respLimited5 = resp5.data.results//.slice(0, 15)
+    respLimited5.map((g) => {
+        var pp5 = {
+            id: g.id,
+            name: g.name,
+            image: g.background_image,
+            genres: g.genres.map((g)=> (g.name)),  // DEBO HACER LO MISMO QUE EN PLATFORMS 
+            rating: g.rating,
+            platforms: g.platforms.map((p)=> (p.platform.name)),
+            releaseDate: g.released,
+            
+        }
+         return videogames.push(pp5)
+     })
+     /*
     const resp6 = await axios.get(resp.data.next)
-    var respLimited6 = resp6.data.results.slice(0, 15)
-    for(let dataNext6 of respLimited6){
-        //console.log('------------------------')
-        //console.log(dataNext)
-        //console.log('------------------------')
-        videogames.push(dataNext6)
-    }
+    var respLimited6 = resp6.data.results//.slice(0, 15)
+    respLimited6.map((g) => {
+        var pp6 = {
+            id: g.id,
+            name: g.name,
+            image: g.background_image,
+            genres: g.genres.map((g)=> (g.name)),  // DEBO HACER LO MISMO QUE EN PLATFORMS 
+            rating: g.rating,
+            platforms: g.platforms.map((p)=> (p.platform.name)),
+            releaseDate: g.released,
+            
+        }
+         return videogames.push(pp6)
+     })
     const resp7 = await axios.get(resp.data.next)
-    var respLimited7 = resp7.data.results.slice(0, 10)
+    var respLimited7 = resp7.data.results//.slice(0, 10)
     for(let dataNext7 of respLimited7){
         //console.log('------------------------')
         //console.log(dataNext)
         //console.log('------------------------')
-        videogames.push(dataNext7)
+        videogames.push({
+            id: respLimited7.id,
+            name: respLimited7.name,
+            image: respLimited7.background_image,
+            genres: respLimited7.genres, 
+            rating: respLimited7.rating,
+            platforms: respLimited7.platforms,
+            releaseDate: respLimited7.released,
+        })
     }
+    */
     //videogames.flat(Infinity)
+    videogames.push(await Videogame.findAll()) 
     res.send(videogames);
        }
   } catch (error) {
