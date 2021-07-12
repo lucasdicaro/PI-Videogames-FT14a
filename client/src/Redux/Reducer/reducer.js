@@ -1,10 +1,11 @@
+
 import {
     GET_ALL_VIDEOGAMES,
     ADD_NEW_GAME,
     SEARCH_GAMES,
     GET_GENRE,
     GET_GAME_ID,
-  } from "../Actions/actions";
+  } from "../constants";
   
   const initialState = {
     getGames: [], 
