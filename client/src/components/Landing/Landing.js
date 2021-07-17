@@ -1,15 +1,14 @@
-
 import React from "react";
 import "./Landing.css";
 import { Link } from "react-router-dom";
 
 function Landing() {
   return (
-    <div className="bg-go">
+    <div className="titles">
         <h3>Welcome to the greatest VideogamesApp!!!</h3>
-            <h2>Created by: Lucas Di Caro</h2>
+            <h4>Created by: Lucas Di Caro</h4>
       <Link to="/home">
-        <button className="btn-grad"> GET STARTED </button>
+        <button className="button"> GET STARTED </button>
       </Link>
     </div>
   );

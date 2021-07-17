@@ -3,3 +3,7 @@ export const SEARCH_GAMES = "SEARCH_GAMES";
 export const GET_GENRE = "GET_GENRE";
 export const GET_GAME_ID = "GET_GAME_ID";
 export const ADD_NEW_GAME = "ADD_NEW_GAME";
+export const ORDER_ASC_NAME = 'ORDER_ASC_NAME';
+export const ORDER_ASC_RATING = 'ORDER_ASC_RATING';
+export const ORDER_DESC_NAME = 'ORDER_DESC_NAME';
+export const ORDER_DESC_RATING = 'ORDER_DESC_RATING';

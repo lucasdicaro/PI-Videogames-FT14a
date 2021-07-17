@@ -1,5 +1,5 @@
 import React from "react";
-import Joystick from "../../img/joystick.png";
+import gggg from "../../img/gggg.png";
 // import SearchBar from "../SearchBar/SearchBar";
 import './NavBar.css';
 // import {Link} from 'react-router-dom';
@@ -7,7 +7,7 @@ import './NavBar.css';
 function Navbar() {
   return (
     <div className="Navbar">
-     <img className = "img" src ={Joystick} alt = "img not found" />
+     <img className = "img" src ={gggg} alt = "img not found" />
      <a href="/home" className ="Home"><h2>Home</h2></a>
      <div className="Navbar">
             <div className="leftSide">
