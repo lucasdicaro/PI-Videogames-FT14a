@@ -14,7 +14,8 @@ function App() {
     <React.Fragment>
      <Route path="/home" component={NavBar}></Route>
       <Route path="/addGame" component={NavBar}></Route>
-      <Route path="/gameDetail/:id" component={Details}></Route>
+      {/* <Route exact path="/gameDetail/:id" render={({ match }) => <Details id={match.params.id} />} /> */}
+     {  <Route path="/gameDetail/:id" component={Details}></Route> }
       <Route exact path="/" component={Landing} />
       <Route path="/home" component={Home}></Route>
       <Route exact path="/addGame" component={AddGame}></Route>

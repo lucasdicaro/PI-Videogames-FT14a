@@ -7,24 +7,19 @@ const Order = () => {
   const dispatch = useDispatch();
   // ordenamiento alfabetico
   const onOrderChange = (e) => {
-    if (e.target.value === "az" || e.target.value === "highest") {
-      dispatch(orderBy(e.target.value));
-    } else {
-      dispatch(orderByDesc(e.target.value));
-    }
-  };
-  const refreshPage = () => {
-    window.location.reload();
+    dispatch(orderBy(e.target.value));    
   }
+  
 
   return (
     <div className="select">
+      <label>Order: </label>
       <select name="slct" id="slct" onChange={onOrderChange}>
-        <option onClick={refreshPage} defaultValue>Ordenar por</option>
+        <option  defaultValue>Ordenar por</option>
         <option value="az">Asc</option>
         <option value="za">Desc</option>
-        <option value="lowest">Lowest rating</option>
-        <option value="highest">Highest rating</option>
+        <option value="ASC">Lowest rating</option>
+        <option value="DESC">Highest rating</option>
       </select>
     </div>
   );

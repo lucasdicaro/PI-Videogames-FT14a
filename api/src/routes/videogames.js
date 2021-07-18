@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const axios = require("axios");
-const { Videogame, Genres, genres_videogames } = require("../db");
+const { Videogame, Genre } = require("../db");
 const { Op } = require("sequelize");
 const { API_KEY } = process.env;
 const router = Router();
@@ -15,13 +15,15 @@ router.get("/", async (req, res) => {
       let dbVideogame = await Videogame.findAll({
         where: {
           name: {
-            [Op.like]: `%${name}%`
+            [Op.iLike]: `%${name}%`
           }
-        }
+        },
+        include: [Genre]
       })
       var resp = await axios.get(
         `https://api.rawg.io/api/games?key=${API_KEY}&name=${name}`
       );
+      console.log(resp)
       for (var i = 0; i < 15; i++) {
         if (resp.data.results[i]) {
           videogames.push(resp.data.results[i]);
@@ -41,7 +43,7 @@ router.get("/", async (req, res) => {
           id: g.id,
           name: g.name,
           image: g.background_image,
-          genres: g.genres.map((g) => g.name),
+          genres: g.genres,
           rating: g.rating,
           platforms: g.platforms.map((p) => p.platform.name),
           releaseDate: g.released,
@@ -57,7 +59,7 @@ router.get("/", async (req, res) => {
           id: g.id,
           name: g.name,
           image: g.background_image,
-          genres: g.genres.map((g) => g.name),
+          genres: g.genres,
           rating: g.rating,
           platforms: g.platforms.map((p) => p.platform.name),
           releaseDate: g.released,
@@ -72,7 +74,7 @@ router.get("/", async (req, res) => {
           id: g.id,
           name: g.name,
           image: g.background_image,
-          genres: g.genres.map((g) => g.name),
+          genres: g.genres,
           rating: g.rating,
           platforms: g.platforms.map((p) => p.platform.name),
           releaseDate: g.released,
@@ -86,7 +88,7 @@ router.get("/", async (req, res) => {
           id: g.id,
           name: g.name,
           image: g.background_image,
-          genres: g.genres.map((g) => g.name),
+          genres: g.genres,
           rating: g.rating,
           platforms: g.platforms.map((p) => p.platform.name),
           releaseDate: g.released,
@@ -100,7 +102,7 @@ router.get("/", async (req, res) => {
           id: g.id,
           name: g.name,
           image: g.background_image,
-          genres: g.genres.map((g) => g.name),
+          genres: g.genres,
           rating: g.rating,
           platforms: g.platforms.map((p) => p.platform.name),
           releaseDate: g.released,
@@ -108,7 +110,7 @@ router.get("/", async (req, res) => {
         return videogames.push(pp5);
       });
 
-      let dbVg = await Videogame.findAll();
+      let dbVg = await Videogame.findAll({include:[Genre]});
 
       const vgConcatenaded = dbVg.concat(videogames);
       res.json(vgConcatenaded);

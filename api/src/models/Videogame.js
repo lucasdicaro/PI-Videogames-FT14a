@@ -7,6 +7,7 @@ module.exports = (sequelize) => {
   sequelize.define('videogame', {
     id: {
       type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true
     },
@@ -24,12 +25,12 @@ module.exports = (sequelize) => {
     rating: {
       type: DataTypes.INTEGER,
     },
-    platform: {
-      type: DataTypes.JSON,
+    parent_platforms: {
+      type: DataTypes.ARRAY(DataTypes.STRING)
      // allowNull: false,
     },
-    image: {
-      type: DataTypes.TEXT,
+    background_image: {
+      type: DataTypes.STRING,
     },
   });
 };

@@ -15,7 +15,7 @@ function AddGame() {
   const [input, setInput] = useState({
     name: "",
     description: "",
-    releaseDate: "",
+    released: "",
     rating: "",
     genres: []
   });
@@ -69,10 +69,11 @@ function AddGame() {
     })
     input.platforms = platformArray;
     dispatch(postGame(input));
+   // console.log(input)
     setInput({
       name: "",
       description: "",
-      releaseDate: "",
+      released: "",
       rating: "",
       genres: []
     });
@@ -85,7 +86,7 @@ function AddGame() {
       e.target.checked ? setPlatform([...platForm, e.target.value])
       : setPlatform(platForm.filter(el => el !== e.target.value))
   };
-
+console.log(platForm)
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <div>
@@ -110,13 +111,13 @@ function AddGame() {
             required
           />
           <div>
-            <label>Releasedate:</label>
+            <label>Released:</label>
             <input
-              className={errors.releaseDate && "danger"}
+              className={errors.released && "danger"}
               type="date"
-              name="releaseDate"
+              name="released"
               onChange={handleInputChange}
-              value={input.releaseDate}
+              value={input.released}
               required
             />
             <div>

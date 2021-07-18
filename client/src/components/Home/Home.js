@@ -2,7 +2,7 @@ import React from "react";
 import "./Home.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllGames, searchQueryGames } from "../../Redux/Actions/actions";
+import { getAllGames, getGenre, searchQueryGames } from "../../Redux/Actions/actions";
 import { Link } from "react-router-dom";
 import Order from "../Order/Order";
 import GameCard from "./GameCard/GameCard";
@@ -32,6 +32,7 @@ function Home() {
     if (search) {
       searchGame(name);
     } else {
+      dispatch(getGenre())
       dispatch(getAllGames());
     }
   }, [search]); //array de dependencia, con cada cambio del search se ejecuta
@@ -48,6 +49,7 @@ function Home() {
       <ul>
       <h2>Look for your favourite videogame</h2>
       <Order></Order>
+      
       {
       search ? (
         searchGames.map((game) => {

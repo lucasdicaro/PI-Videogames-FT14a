@@ -1,6 +1,6 @@
 const SearchBar = (props) => {
   const handleInputChange = (e) => {
-      console.log(e.target.value + 'SearchBar')
+      //console.log(e.target.value + 'SearchBar')
       e.preventDefault()
       props.setName(e.target.value) 
   }
@@ -12,7 +12,7 @@ const SearchBar = (props) => {
 
   return (
       <form >
-      <label >Search Videgames</label>
+      <label >Search Videogames</label>
       <input
           type="text"            
           placeholder="Search Videogame"             

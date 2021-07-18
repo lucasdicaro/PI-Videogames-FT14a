@@ -2,6 +2,7 @@ import React from 'react'
 import './GameCard.css';
 
 function GameCard({game}) {
+    console.log('GAMEEEEEEE––––––', game)
     return (
         <div className = "card-container">
             <h2>{game.name}</h2>
@@ -9,7 +10,7 @@ function GameCard({game}) {
             <h4>Genres:</h4> 
             {
                 game.genres && game.genres.map((el,i) => {
-                    return <li key={i}>{el}</li>
+                    return <li key={i}>{el.name}</li>
                 } )
             }
         </div>
