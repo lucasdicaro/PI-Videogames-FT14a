@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
         include: [Genre]
       })
       var resp = await axios.get(
-        `https://api.rawg.io/api/games?key=${API_KEY}&name=${name}`
+        `https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`
       );
       console.log(resp)
       for (var i = 0; i < 15; i++) {

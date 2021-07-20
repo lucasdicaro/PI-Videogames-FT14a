@@ -7,6 +7,7 @@ import  './Pagination.css';
 export default function Pagination() {
   let dataLimit = 15;
   const getGames = useSelector((state) => state.getGames);
+  const searchGames = useSelector((state) => state.searchGames);
   const [pages] = useState(Math.round(getGames.length / dataLimit));
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,10 +20,12 @@ export default function Pagination() {
       setCurrentPage((pages) => pages - 1)
   }
 
+  let sliced = searchGames[0] ? searchGames : getGames
+  
   const getPaginatedData = () => {
       const startIndex = currentPage * dataLimit - dataLimit
       const endIndex = startIndex + dataLimit
-      return getGames.slice(startIndex, endIndex)
+      return sliced.slice(startIndex, endIndex)
   };        
   
    return (

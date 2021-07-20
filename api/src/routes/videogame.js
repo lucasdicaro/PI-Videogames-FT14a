@@ -52,8 +52,7 @@ router.get(`/:id`, async (req, res) => {
 // [ ] POST /videogame
 router.post("/", async function addVideogame(req, res) {
   try {
-    const { name, description, released, rating, parent_platforms, genres } = req.body;
-    
+    const { name, description, released, rating, parent_platforms, genres, image } = req.body;
     const videogameCreated = await Videogame.create(
       {
         name:name,
@@ -63,18 +62,10 @@ router.post("/", async function addVideogame(req, res) {
         /* background_image:background_image,  */
         parent_platforms:parent_platforms, 
        /*  genres:genres  */
+       image: "https://lh3.googleusercontent.com/proxy/23cdcBfcgbg2Jlx5OCgqw6jlxt7fYK5ZHPGeDSUxhg2dSrcZrtDcHmRgYRnTl9PpMXg9WsXxQMPbgdD1lMQS2Nx9qEhavEKd27aMWgiH8Q5Nc56LwyQz1Ls",
       }
       )
     await videogameCreated.setGenres(genres) 
-     
-
-
-    /*   let genresGame = await Genre.findAll({
-        where: { name: { [Op.or]: genres } }
-      });  */
-     // await videogameCreated.addGenre(genresGame/* genres,{through:'genres_videogame'} */);
-       /* let arrayCreated = []
-      arrayCreated.push(videogameCreated)  */
     return res.json(videogameCreated)
   } catch (error) {
     res.json(error)
@@ -82,3 +73,10 @@ router.post("/", async function addVideogame(req, res) {
 });
 
 module.exports = router;
+
+/*   let genresGame = await Genre.findAll({
+    where: { name: { [Op.or]: genres } }
+  });  */
+ // await videogameCreated.addGenre(genresGame/* genres,{through:'genres_videogame'} */);
+   /* let arrayCreated = []
+  arrayCreated.push(videogameCreated)  */

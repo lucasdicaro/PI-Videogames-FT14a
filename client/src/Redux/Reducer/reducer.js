@@ -8,7 +8,8 @@ import {
   za,
   ASC,
   DESC,
-  FILTER,
+  FILTER_BY_GENRE,
+  FILTER_BY_SOURCE,
 } from "../constants";
 
 const initialState = {
@@ -19,6 +20,8 @@ const initialState = {
   getGenres: [], 
   getDetails: {},
   filterGames: [],
+  filterBy: "Filter By",
+  
 };
 
 console.log(initialState.searchGames)
@@ -101,6 +104,77 @@ const rootReducer = (state = initialState, action) => {
         ...state,        
         getGames: [...res4],
       };
+      case FILTER_BY_GENRE:
+        return {
+          ...state,
+          filterGames: action.payload.genreGame,
+          filterBy: action.payload.genres,
+        };
+      case FILTER_BY_SOURCE:
+        return {
+          ...state,
+          filterGames: action.payload.gettingSource,
+          filterBy: action.payload.source,
+        };
+
+      /* case FILTER:
+        if(action.payload === 'null') {
+          return {
+            ...state,
+            getGames: state.originalGames
+          } 
+        };      
+      const filter = state.originalGames.filter(game => {
+       
+        for(let i=0; i < game.genres.length; i++) {
+          if(game.genres[i].name === action.payload)  {
+            return true
+          } 
+        }
+        return false
+      } );      
+      
+      return {
+        ...state,
+       getGames: filter,
+      };
+
+      
+      case FILTER_MINE: 
+      if(action.payload === 'null') {
+        return {
+          ...state,
+          getGames: state.originalGames
+        } 
+      };   
+      let filterMine = []
+      if(action.payload === 'dB') {
+        filterMine = state.originalGames.filter(game => game.mine === true);
+        
+      } else {
+        filterMine = state.originalGames.filter(game => game.mine === false);
+      }
+      console.log('MIS HIJITOS: ',filterMine)
+      
+      return {
+        ...state,
+       getGames: filterMine,
+      } */
+ /*      case FILTER:
+      if(action.payload === 'null') {
+        return {
+          ...state,
+          getGames: state.originalGames
+        }
+      };
+      state.originalGames = state.getGames;
+      const filter = state.getGames.filter((game) => game.genres.includes(action.payload));
+      console.log('FILTRAAAADOOOOO',action.payload)
+      console.log(state.getGames)
+      return {
+        ...state,
+         getGames: [...filter]  
+      }; */
     default:
       return state;
   }

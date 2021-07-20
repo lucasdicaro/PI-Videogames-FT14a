@@ -3,11 +3,9 @@ import {
   SEARCH_GAMES,
   GET_GENRE,
   GET_GAME_ID,
-  ORDER_ASC_NAME,
-  ORDER_ASC_RATING,
-  ORDER_DESC_NAME,
-  ORDER_DESC_RATING,
-  ADD_NEW_GAME
+  ADD_NEW_GAME,
+  FILTER_BY_GENRE,
+  FILTER_BY_SOURCE,
 
 } from '../constants';
 
@@ -30,8 +28,7 @@ export const getAllGames = () => async (dispatch) => {
 export const searchQueryGames = (name) => async (dispatch) => {
   try {
       const res = await axios.get(`http://localhost:3001/videogames?name=${name}`);
-     console.log('JUAAAAANNNN', res)
-      dispatch({
+       dispatch({
           type: SEARCH_GAMES,
           payload: res.data
       });
@@ -73,7 +70,72 @@ export const orderBy = (sort) => (dispatch) => {
       type: sort,        
     })    
 };
+export const filterByGenres = (genres) => (dispatch, getState) => {
+  let filterByGenre = [];
+  if (genres === "Filter By") {
+    filterByGenre = getState().getGames;
+  } else {
+    filterByGenre = getState().getGames.filter((game) =>
+      (game.genres || []).includes(genres)
+    );
+  }
+  dispatch({
+    type: FILTER_BY_GENRE,
+    payload: {
+      genres,
+      genreGame: filterByGenre,
+    },
+  });
+};
 
+export const filterBySource = (source) => (dispatch, getState) => {
+  if (source === "Filter By") {
+    const sourceGame = getState().getGames;
+    dispatch({
+      type: FILTER_BY_SOURCE,
+      payload: {
+        source,
+        filterSource: sourceGame,
+      },
+    });
+  } else {
+    const gettingSource = getState()
+      .gamesState.games.slice()
+      .filter((g) => {
+        return g.source === source;
+      });
+    dispatch({
+      type: FILTER_BY_SOURCE,
+      payload: {
+        gettingSource,
+        source,
+      },
+    });
+  }
+};
+/* export const filterBy = (filter) => (dispatch) => {  
+    //console.log('QUE ESTAMOS BUSCANDO: ',filter, typeof(filter))    
+    dispatch({
+        type: FILTER, 
+        payload: filter       
+      })    
+  };
+
+  export const filterMine = (filter) => (dispatch) => {  
+    console.log('QUE ESTAMOS BUSCANDO: ',filter)    
+    dispatch({
+        type: FILTER_MINE, 
+        payload: filter       
+      })    
+  }; */
+/* 
+export const filterBy = (filter) => (dispatch) => {  
+    dispatch({
+        type: FILTER, 
+        payload: filter       
+      })    
+  }; */
+  
 
 
 //Creando un nuevo juego.

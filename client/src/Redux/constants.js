@@ -7,4 +7,5 @@ export const az = "az";
 export const za = "za";
 export const ASC = "ASC";
 export const DESC = "DESC";
-export const FILTER = 'FILTER';
+export const FILTER_BY_GENRE = "FILTER_BY_GENRE"
+export const FILTER_BY_SOURCE = "FILTER_BY_SOURCE"
