@@ -52,7 +52,7 @@ router.get(`/:id`, async (req, res) => {
 // [ ] POST /videogame
 router.post("/", async function addVideogame(req, res) {
   try {
-    const { name, description, released, rating, parent_platforms, genres, image } = req.body;
+    const { name, description, released, rating, parent_platforms, genres, background_image, mine } = req.body;
     const videogameCreated = await Videogame.create(
       {
         name:name,
@@ -61,8 +61,9 @@ router.post("/", async function addVideogame(req, res) {
         rating:rating,
         /* background_image:background_image,  */
         parent_platforms:parent_platforms, 
+        mine:true,
        /*  genres:genres  */
-       image: "https://lh3.googleusercontent.com/proxy/23cdcBfcgbg2Jlx5OCgqw6jlxt7fYK5ZHPGeDSUxhg2dSrcZrtDcHmRgYRnTl9PpMXg9WsXxQMPbgdD1lMQS2Nx9qEhavEKd27aMWgiH8Q5Nc56LwyQz1Ls",
+       background_image: "https://media.revistagq.com/photos/5e7dd2d85bcabb0008f4dc45/master/pass/Doom-Eternal-is-ready-to-blow-your-eyeballs-out-at-1000-FPS-scaled-1280x720.jpg",
       }
       )
     await videogameCreated.setGenres(genres) 

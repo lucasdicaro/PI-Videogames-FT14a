@@ -67,7 +67,7 @@ function AddGame() {
             }
         ) 
     })
-    input.platforms = platformArray;
+    input.parent_platforms = platForm;
     dispatch(postGame(input));
    // console.log(input)
     setInput({

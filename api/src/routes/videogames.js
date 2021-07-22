@@ -47,6 +47,7 @@ router.get("/", async (req, res) => {
           rating: g.rating,
           platforms: g.platforms.map((p) => p.platform.name),
           releaseDate: g.released,
+          mine: false,
         };
         return videogames.push(pp);
       });
@@ -63,6 +64,7 @@ router.get("/", async (req, res) => {
           rating: g.rating,
           platforms: g.platforms.map((p) => p.platform.name),
           releaseDate: g.released,
+          mine: false,
         };
         return videogames.push(pp2);
       });
@@ -78,6 +80,7 @@ router.get("/", async (req, res) => {
           rating: g.rating,
           platforms: g.platforms.map((p) => p.platform.name),
           releaseDate: g.released,
+          mine: false,
         };
         return videogames.push(pp3);
       });
@@ -92,6 +95,7 @@ router.get("/", async (req, res) => {
           rating: g.rating,
           platforms: g.platforms.map((p) => p.platform.name),
           releaseDate: g.released,
+          mine: false,
         };
         return videogames.push(pp4);
       });
@@ -106,6 +110,7 @@ router.get("/", async (req, res) => {
           rating: g.rating,
           platforms: g.platforms.map((p) => p.platform.name),
           releaseDate: g.released,
+          mine: false,
         };
         return videogames.push(pp5);
       });

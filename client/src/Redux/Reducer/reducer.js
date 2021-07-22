@@ -8,8 +8,9 @@ import {
   za,
   ASC,
   DESC,
-  FILTER_BY_GENRE,
-  FILTER_BY_SOURCE,
+  FILTER,
+  FILTER_MINE,
+ 
 } from "../constants";
 
 const initialState = {
@@ -19,8 +20,7 @@ const initialState = {
   searchGames: [],
   getGenres: [], 
   getDetails: {},
-  filterGames: [],
-  filterBy: "Filter By",
+  filterGames: []
   
 };
 
@@ -30,7 +30,8 @@ const rootReducer = (state = initialState, action) => {
     case GET_ALL_VIDEOGAMES:
       return {
         ...state,
-        getGames: action.payload
+        getGames: action.payload,
+        originalGames: action.payload
       };
 
     case ADD_NEW_GAME:
@@ -104,20 +105,8 @@ const rootReducer = (state = initialState, action) => {
         ...state,        
         getGames: [...res4],
       };
-      case FILTER_BY_GENRE:
-        return {
-          ...state,
-          filterGames: action.payload.genreGame,
-          filterBy: action.payload.genres,
-        };
-      case FILTER_BY_SOURCE:
-        return {
-          ...state,
-          filterGames: action.payload.gettingSource,
-          filterBy: action.payload.source,
-        };
 
-      /* case FILTER:
+      case FILTER:
         if(action.payload === 'null') {
           return {
             ...state,
@@ -154,12 +143,28 @@ const rootReducer = (state = initialState, action) => {
       } else {
         filterMine = state.originalGames.filter(game => game.mine === false);
       }
-      console.log('MIS HIJITOS: ',filterMine)
+     /*  console.log('MIS HIJITOS: ',filterMine) */
       
       return {
         ...state,
        getGames: filterMine,
-      } */
+      }
+
+     /*  case FILTER_RATING:
+         filterRatind = state.getGames.filter(game => game.rating > 3);
+         return {
+           ...state,
+           getGames:filterRatind
+         } */
+
+    /*  for(let i=0; i < state.getGames.length; i++){
+        if(state.getGames[0].rating){
+         
+        }
+     } */
+
+
+
  /*      case FILTER:
       if(action.payload === 'null') {
         return {

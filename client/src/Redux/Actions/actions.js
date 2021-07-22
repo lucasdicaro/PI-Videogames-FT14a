@@ -4,8 +4,9 @@ import {
   GET_GENRE,
   GET_GAME_ID,
   ADD_NEW_GAME,
-  FILTER_BY_GENRE,
-  FILTER_BY_SOURCE,
+  FILTER, 
+  FILTER_MINE,
+  
 
 } from '../constants';
 
@@ -70,50 +71,7 @@ export const orderBy = (sort) => (dispatch) => {
       type: sort,        
     })    
 };
-export const filterByGenres = (genres) => (dispatch, getState) => {
-  let filterByGenre = [];
-  if (genres === "Filter By") {
-    filterByGenre = getState().getGames;
-  } else {
-    filterByGenre = getState().getGames.filter((game) =>
-      (game.genres || []).includes(genres)
-    );
-  }
-  dispatch({
-    type: FILTER_BY_GENRE,
-    payload: {
-      genres,
-      genreGame: filterByGenre,
-    },
-  });
-};
-
-export const filterBySource = (source) => (dispatch, getState) => {
-  if (source === "Filter By") {
-    const sourceGame = getState().getGames;
-    dispatch({
-      type: FILTER_BY_SOURCE,
-      payload: {
-        source,
-        filterSource: sourceGame,
-      },
-    });
-  } else {
-    const gettingSource = getState()
-      .gamesState.games.slice()
-      .filter((g) => {
-        return g.source === source;
-      });
-    dispatch({
-      type: FILTER_BY_SOURCE,
-      payload: {
-        gettingSource,
-        source,
-      },
-    });
-  }
-};
-/* export const filterBy = (filter) => (dispatch) => {  
+export const filterBy = (filter) => (dispatch) => {  
     //console.log('QUE ESTAMOS BUSCANDO: ',filter, typeof(filter))    
     dispatch({
         type: FILTER, 
@@ -122,12 +80,15 @@ export const filterBySource = (source) => (dispatch, getState) => {
   };
 
   export const filterMine = (filter) => (dispatch) => {  
-    console.log('QUE ESTAMOS BUSCANDO: ',filter)    
+    /* console.log('QUE ESTAMOS BUSCANDO: ',filter)    */ 
     dispatch({
         type: FILTER_MINE, 
         payload: filter       
       })    
-  }; */
+  };
+
+ 
+
 /* 
 export const filterBy = (filter) => (dispatch) => {  
     dispatch({

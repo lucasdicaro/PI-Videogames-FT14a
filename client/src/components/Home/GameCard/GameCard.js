@@ -6,7 +6,7 @@ function GameCard({game}) {
     return (
         <div className = "card-container">
             <h2>{game.name}</h2>
-            <img className = "img-cards"src= {game.background_image} alt = "img not found"/>
+            <img className = "img-cards"src= {game.image || game.background_image} alt = "img not found"/>
             <h4>Genres:</h4> 
             {
                 game.genres && game.genres.map((el,i) => {

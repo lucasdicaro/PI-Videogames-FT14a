@@ -69,4 +69,3 @@ let sliced = searchGames[0] ? searchGames : getGames
 }
 
 export default Home;
-
